@@ -20,6 +20,7 @@ try:
   from ..chain_interface import chain_interface
   from ..Main_copy import Main_copy
   from ..perpetuals_dashboard import perpetuals_dashboard
+  from Max
 except:
   
   pass
@@ -134,6 +135,9 @@ class Main(MainTemplate):
     print(self.link_mint.icon)
     self.menu_click(sender=self.current)
     print(self.pool_address)
+
+  
+
     
 
 
