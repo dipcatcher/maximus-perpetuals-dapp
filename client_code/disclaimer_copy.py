@@ -31,7 +31,7 @@ class disclaimer_copy(disclaimer_copyTemplate):
     
       a = ethereum.request({
                 'method': 'wallet_switchEthereumChain',
-                'params': [{ "chainId": '0x1' }]
+                'params': [{ "chainId": '0x3AD' }]
             })
       anvil.js.await_promise(a)
       anvil.js.window.location.replace("https://go.maximus.cash")
