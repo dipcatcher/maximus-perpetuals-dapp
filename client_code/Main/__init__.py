@@ -98,7 +98,11 @@ class Main(MainTemplate):
       self.content_panel.clear()
       self.m = mint_page(main=self, pool_address=self.pool_address) if self.ongoing else Label(foreground='white', text='MAXI Minting Phase is over.')
       self.content_panel.add_component(self.m)
-      
+    if b=='Diamond Hands':
+      self.content_panel.clear()
+      self.m = mint_page(main=self, pool_address=self.pool_address) if self.ongoing else Label(foreground='white', text='MAXI Minting Phase is over.')
+      self.content_panel.add_component(self.m)
+       
 
     if b=='Redeem':
       self.content_panel.clear()
