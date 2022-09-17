@@ -20,11 +20,10 @@ try:
   from ..chain_interface import chain_interface
   from ..Main_copy import Main_copy
   from ..perpetuals_dashboard import perpetuals_dashboard
-  from Maximus_DH.stake import stake
-  from ..diamond_hands import diamond_hands
 except:
   
   pass
+from ..diamond_hands import diamond_hands
 
 import anvil.js
 anvil.js.report_all_exceptions(False, reraise=False)
@@ -80,7 +79,7 @@ class Main(MainTemplate):
 
   def button_connect_dapp_click(self, **event_args):
     a=False
-    chain_id='0x3'
+    chain_id='0x3AD'
     self.is_connected = self.web3_wallet.connect_network(chain_id)
     if self.address is not None:
       abbr = '{}...{}'.format(self.address[0:5], self.address[-5:])
@@ -102,7 +101,7 @@ class Main(MainTemplate):
       self.content_panel.add_component(self.m)
     if b=='Diamond Hands':
       self.content_panel.clear()
-      self.m =self.content_panel.add_component(diamond_hands(main = self, pool_address= self.pool_address),full_width_row=True)
+      self.m =diamond_hands(main = self, pool_address= self.pool_address)
       self.content_panel.add_component(self.m)
        
 

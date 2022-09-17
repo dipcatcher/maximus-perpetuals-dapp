@@ -11,10 +11,7 @@ class Main_copy(Main_copyTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    tshare = 24128
-    n_hex_per_tshare = 24128/3
-    n_hedron = 1000*3650
-    alert([n_hex_per_tshare, n_hedron])
+    
     self.address=None
     self.target= get_url_hash() or "BASE"
     self.target= self.target.upper()

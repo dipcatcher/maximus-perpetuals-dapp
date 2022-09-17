@@ -1,0 +1,23 @@
+container:
+  type: ColumnPanel
+  properties: {col_widths: '{}'}
+components:
+- type: ColumnPanel
+  properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+    spacing_below: small, background: ''}
+  name: column_panel_1
+  layout_properties:
+    col_widths: {}
+    grid_position: OMTOYJ,CVLDEI
+  components:
+  - type: Label
+    properties: {role: subheading, align: left, tooltip: '', border: '', foreground: white,
+      visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,
+      spacing_below: small, italic: false, background: '', bold: false, underline: false,
+      icon: ''}
+    name: label_day
+    layout_properties:
+      col_widths: {}
+      grid_position: PCZBGS,RHMHLZ
+is_package: true
