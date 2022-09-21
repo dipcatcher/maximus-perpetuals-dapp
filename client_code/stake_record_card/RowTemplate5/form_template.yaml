@@ -1,4 +1,8 @@
-container: {type: DataRowPanel}
+container:
+  type: DataRowPanel
+  properties: {role: rounded-border, align: left, tooltip: '', border: '', foreground: '',
+    auto_display_data: true, visible: true, font_size: null, font: '', spacing_above: none,
+    spacing_below: none, italic: false, background: '', bold: false, underline: false}
 components:
 - type: Link
   properties: {role: null, url: '', align: left, tooltip: '', border: '', foreground: cyan,
@@ -20,7 +24,7 @@ components:
     border: ''
     foreground: ''
     rows_per_page: 20
-    visible: true
+    visible: false
     wrap_on: never
     show_page_controls: false
     spacing_above: small

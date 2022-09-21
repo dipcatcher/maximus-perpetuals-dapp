@@ -43,7 +43,7 @@ class stake_record_card(stake_record_cardTemplate):
       
     self.label_stake_end.text="Year {}".format(int((self.d_stake_record['stake_expiry_period']+1)/2))
     self.label_staked_amount.text="{0:,.2f}".format(float(self.d_stake_record['amount_actively_staked']/(10**8)))
-    t =[]
+    tt =[]
     for k,v in self.d_stake_record['stakedTokensPerPeriod'].items():
       if v>0:
         total = int(self.main.dh_contract.globalStakedTokensPerPeriod(k).toString())
@@ -53,7 +53,7 @@ class stake_record_card(stake_record_cardTemplate):
           d = 9 if token =='HDRN' else 8
           if claimable>0:
             claimable_amounts.append({'stakeID':self.d_stake_record['stakeID'], "token":token, "claimable":float(claimable/(10**d)),'period':k, 'claimed':self.read_reward_contract.didUserStakeClaimFromPeriod(self.address,d_stake_record['stakeID'],k,token )})
-        t.append({'period':int((k+1)/2), 'amount':float(v/(10**8)), 'total':float(total/(10**8)), 'claimable':claimable_amounts, 'stakeID':self.d_stake_record['stakeID'], 'current_period':self.current_period})
+        tt.append({'period':int((k+1)/2), 'amount':float(v/(10**8)), 'total':float(total/(10**8)), 'claimable':claimable_amounts, 'stakeID':self.d_stake_record['stakeID'], 'current_period':self.current_period})
         
         #self.label_stake_id.text="Stake ID: {}".format(self.d_stake_record['stakeID'])
     self.team_balance =int(self.main.pool_contract.balanceOf(self.address).toString())
@@ -63,14 +63,16 @@ class stake_record_card(stake_record_cardTemplate):
     self.team_supply = self.main.pool_contract.totalSupply().toString()
     #self.label_total_liquid.text = '{:.8f} ❇️'.format(int(self.team_supply)/100000000)
     self.team_staked_total = self.main.dh_contract.GLOBAL_AMOUNT_STAKED().toString()
-    self.repeating_panel_2.items=t
+    self.repeating_panel_2.items=tt
+    print('rp')
+    print(tt)
   def menu_click(self, **event_args):
     
       t = event_args['sender']
       if t==self.button_early_end_stake:
         existing_TEAM = self.team_balance
         
-        l = Label(text='Since you are committed to stake through year {} you will experience a 3.69% penalty on any TEAM you end stake now. Are you sure you want to end stake?'.format(int((self.d_stake_record['stake_expiry_period']+1)/2)))
+        l = Label(text='Since you are committed to stake through year {} you will experience a 3.69% penalty on any {} you end stake now. Are you sure you want to end stake?'.format(int((self.d_stake_record['stake_expiry_period']+1)/2), self.main.ticker))
         _ = alert(l, title='Important Early End Stake Penalty Information', buttons=[('Yes', True), ('Cancel', False)])
         if _:
           tb = early_end_stake(team_balance=self.d_stake_record['amount_actively_staked']/(10**8))
@@ -85,7 +87,7 @@ class stake_record_card(stake_record_cardTemplate):
       if t ==self.button_end_completed_stake:
         existing_TEAM = self.team_balance
         tb = TextBox(type='number')
-        label = Label(foreground='grey',font_size=12,text='Available TEAM: {}'.format(int(self.d_stake_record['amount_actively_staked']/(10**8))))
+        label = Label(foreground='grey',font_size=12,text='Available {}: {}'.format(self.main.ticker,int(self.d_stake_record['amount_actively_staked']/(10**8))))
         c = ColumnPanel()
         c.add_component(tb)
         c.add_component(label)
@@ -116,15 +118,13 @@ class stake_record_card(stake_record_cardTemplate):
           self.stake_page.refresh_page()
       if t==self.button_claim_rewards:
         print(t)
-        self.data_grid_1.visible=True
+        self.data_grid_2.visible=True
+        self.repeating_panel_2.visible=True
       
       #self.refresh_card()
         
       # Any code you write here will run when the form opens.
 
-  def link_manage_click(self, **event_args):
-    """This method is called when the link is clicked"""
-    self.flow_panel_manage.visible=not self.flow_panel_manage.visible
   
   def claim_function(self, period, ticker, stake_id, **event_args):
     anvil.js.await_promise(self.main.srd_contract_write.claimRewards(period, ticker, stake_id))
@@ -132,4 +132,9 @@ class stake_record_card(stake_record_cardTemplate):
       time.sleep(1)
     self.refresh_card()
     # check if the did claim value is set to true, then we need to refresh the view
+
+  def form_show(self, **event_args):
+    """This method is called when the column panel is shown on the screen"""
+    pass
+
     

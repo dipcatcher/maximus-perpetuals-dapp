@@ -9,7 +9,8 @@ class RowTemplate5(RowTemplate5Template):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    print(self.parent)
+    
+    
     self.link_1.text = self.item['period']
     
 
