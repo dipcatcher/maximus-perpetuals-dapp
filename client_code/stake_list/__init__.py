@@ -13,12 +13,27 @@ from ..stake_record_card import stake_record_card
 class stake_list(stake_listTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
+    '''in MAIN: 
+    self.dh_contract
+    self.dh_contract_write
+    self.pool_contract
+    self.pool_contract_write
+    self.reward_bucket_contract
+    self.reward_bucket_contract_write
+    self.srd_contract
+    self.srd_contract_write'''
     self.init_components(**properties)
     self.main=properties['main']
     self.address = self.main.address
     self.stake_page = properties['stake_page']
-    self.dh_contract, self.pool_contract, self.team_contract = self.stake_page.get_contract_data(self.main.provider, self.stake_page.ticker)
-    self.write_dh_contract, self.write_pool_contract, self.write_team_contract = self.stake_page.get_contract_data(self.main.signer, self.stake_page.ticker)
+    #self.dh_contract, self.pool_contract, self.team_contract = self.stake_page.get_contract_data(self.main.provider, self.stake_page.ticker)
+    self.dh_contract = self.main.dh_contract
+    self.pool_contract = self.main.pool_contract
+    self.team_contract = self.main.team_contract
+    self.write_dh_contract =self.main.dh_contract_write
+    
+    self.write_pool_contract = self.main.pool_contract_write
+    self.write_team_contract = self.main.team_contract_write
     self.refresh_page()
     
     
@@ -44,7 +59,7 @@ class stake_list(stake_listTemplate):
       
       b[m]=int(self.dh_contract.getAddressPeriodEndTotal(user, m, d_stake_record['stakeID']).toString())
       
-    d_stake_record['stakedTeamPerPeriod'] = b
+    d_stake_record['stakedTokensPerPeriod'] = b
     d_stake_record['amount_actively_staked']=d_stake_record['balance']
     d_stake_record['current_period']=self.current_period
     return d_stake_record
@@ -57,7 +72,7 @@ class stake_list(stake_listTemplate):
       if stake_record['initiated']:
         self.label_day.text='Your Stakes'
         self.stake_records.append(stake_record)
-        self.column_panel_1.add_component(stake_record_card(stake_record=stake_record, team_contract=self.team_contract, write_team_contract=self.write_team_contract, address=self.address, read_reward_contract=self.reward_contract, write_reward_contract=self.write_reward_contract, main=self.main, stake_page=self.stake_page, dh_contract = self.dh_contract))
+        self.column_panel_1.add_component(stake_record_card(stake_record=stake_record, team_contract=self.dh_contract, write_team_contract=self.write_dh_contract, address=self.address, read_reward_contract=self.main.srd_contract, write_reward_contract=self.main.srd_contract_write, main=self.main, stake_page=self.stake_page, dh_contract = self.dh_contract))
   
     
       

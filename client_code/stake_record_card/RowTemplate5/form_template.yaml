@@ -1,0 +1,36 @@
+container: {type: DataRowPanel}
+components:
+- type: Link
+  properties: {role: null, url: '', align: left, tooltip: '', border: '', foreground: cyan,
+    visible: true, text: '', font_size: null, wrap_on: mobile, font: '', col_spacing: medium,
+    spacing_above: small, icon_align: left, col_widths: '', spacing_below: small,
+    italic: false, background: '', bold: false, underline: false, icon: 'fa:expand'}
+  name: link_1
+  layout_properties: {column: DOTCFF}
+  event_bindings: {click: link_1_click}
+- type: DataGrid
+  properties:
+    role: null
+    columns:
+    - {id: OQEXUE, title: Token, data_key: column_1, $$hashKey: 'object:82177'}
+    - {id: APKIEA, title: Amount, data_key: column_2, $$hashKey: 'object:82178'}
+    - {id: CMEVDI, title: Claimed, data_key: column_3, $$hashKey: 'object:82179'}
+    auto_header: true
+    tooltip: ''
+    border: ''
+    foreground: ''
+    rows_per_page: 20
+    visible: true
+    wrap_on: never
+    show_page_controls: false
+    spacing_above: small
+    spacing_below: small
+    background: ''
+  name: data_grid_1
+  layout_properties: {column: null}
+  components:
+  - type: RepeatingPanel
+    properties: {spacing_above: none, spacing_below: none, item_template: stake_record_card.RowTemplate5.RowTemplate6}
+    name: repeating_panel_1
+    layout_properties: {}
+is_package: true

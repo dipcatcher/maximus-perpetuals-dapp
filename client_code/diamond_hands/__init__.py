@@ -121,11 +121,11 @@ class diamond_hands(diamond_handsTemplate):
         return False
       if self.units>self.approved_pool:
         self.column_panel_2.visible=True
-        self.label_1.visible=True
+        self.label_permission.visible=True
         self.link_3.visible=True
         self.column_panel_2.role='card'
         self.button_2.enabled = False
-        self.label_1.text="First, {} needs your permission to interact with {} of your HEX.".format(self.dh_contract.name(),raw_units)
+        self.label_permission.text="First, {} needs your permission to interact with {} of your {}.".format("Diamond Hands Contract",raw_units, self.ticker)
         self.button_2_copy.text = 'APPROVE {} {}'.format(raw_units, self.ticker)
         
       else:
@@ -197,6 +197,40 @@ class diamond_hands(diamond_handsTemplate):
         event_args['sender'].text='TEAM Token Added'
       except Exception as e:
         print(e)
+  def button_2_copy_click(self, **event_args):
+    """This method is called when the button is clicked"""
+    if 'APPROVE' in self.button_2_copy.text:
+      
+      self.button_2_copy.text=self.button_2_copy.text.replace("APPROVE", "APPROVING")
+      self.button_2_copy.enabled=False
+      self.approve_request(self.units)
+    else:
+      self.text_box_1_change()
+  
+  def approve_request(self, units):
+    try:
+      
+      anvil.js.await_promise(self.main.pool_contract_write.approve(self.main.dh_address, units))
+      
+      while self.approved_pool<self.units:
+        self.check_approval()
+        time.sleep(1)
+        
+      #self.button_2.text='MINT {}'.format(self.symbol)
+      
+      #self.column_panel_2.visible=False
+      self.label_permission.visible=False
+      self.link_3.visible=False
+      self.button_2_copy.text=self.button_2_copy.text.replace("APPROVING", "APPROVED")
+      self.button_2_copy.background='green'
+      self.column_panel_2.role=''
+      self.button_2_copy.enabled=False
+      self.button_2_copy.icon='fa:check'
+      self.button_2.enabled=True
+    except Exception as e:
+      raise e
+      self.button_2_copy.text=self.button_2_copy.text.replace("APPROVING", "APPROVE")
+      self.text_box_1_change()
 
   
 

@@ -1,0 +1,8 @@
+container: {type: DataRowPanel}
+components:
+- type: Link
+  properties: {}
+  name: link_claim
+  layout_properties: {column: CMEVDI}
+  event_bindings: {click: link_claim_click}
+is_package: true

@@ -44,26 +44,26 @@ class stake_record_card(stake_record_cardTemplate):
     self.label_stake_end.text="Year {}".format(int((self.d_stake_record['stake_expiry_period']+1)/2))
     self.label_staked_amount.text="{0:,.2f}".format(float(self.d_stake_record['amount_actively_staked']/(10**8)))
     t =[]
-    for k,v in self.d_stake_record['stakedTeamPerPeriod'].items():
+    for k,v in self.d_stake_record['stakedTokensPerPeriod'].items():
       if v>0:
-        total = int(self.team_contract.globalStakedTokensPerPeriod(k).toString())
+        total = int(self.main.dh_contract.globalStakedTokensPerPeriod(k).toString())
         claimable_amounts = []
         for token in ['HEX','HDRN', 'MAXI', 'BASE', 'TRIO', 'LUCKY', 'DECI']:
-          claimable = int(self.team_contract.getClaimableAmount(self.address, k, token, self.d_stake_record['stakeID'])[0].toString())
+          claimable = int(self.main.reward_bucket_contract.getClaimableAmount(self.address, k, token, self.d_stake_record['stakeID'])[0].toString())
           d = 9 if token =='HDRN' else 8
           if claimable>0:
             claimable_amounts.append({'stakeID':self.d_stake_record['stakeID'], "token":token, "claimable":float(claimable/(10**d)),'period':k, 'claimed':self.read_reward_contract.didUserStakeClaimFromPeriod(self.address,d_stake_record['stakeID'],k,token )})
         t.append({'period':int((k+1)/2), 'amount':float(v/(10**8)), 'total':float(total/(10**8)), 'claimable':claimable_amounts, 'stakeID':self.d_stake_record['stakeID'], 'current_period':self.current_period})
         
         #self.label_stake_id.text="Stake ID: {}".format(self.d_stake_record['stakeID'])
-    self.team_balance =int(self.team_contract.balanceOf(self.address).toString())
+    self.team_balance =int(self.main.pool_contract.balanceOf(self.address).toString())
     #self.label_team_balance.text = '{:.8f} ❇️'.format(int(self.team_balance)/100000000)
-    self.team_staked = int(self.team_contract.USER_AMOUNT_STAKED(self.address).toString())
+    self.team_staked = int(self.main.dh_contract.USER_AMOUNT_STAKED(self.address).toString())
     #self.label_team_staked.text = '{:.8f} ❇️'.format(int(self.team_staked)/100000000)
-    self.team_supply = self.team_contract.totalSupply().toString()
+    self.team_supply = self.main.pool_contract.totalSupply().toString()
     #self.label_total_liquid.text = '{:.8f} ❇️'.format(int(self.team_supply)/100000000)
-    self.team_staked_total = self.team_contract.GLOBAL_AMOUNT_STAKED().toString()
-    self.repeating_panel_1.items=t
+    self.team_staked_total = self.main.dh_contract.GLOBAL_AMOUNT_STAKED().toString()
+    self.repeating_panel_2.items=t
   def menu_click(self, **event_args):
     
       t = event_args['sender']
@@ -78,8 +78,8 @@ class stake_record_card(stake_record_cardTemplate):
           if a:
             raw_units=float(tb.raw_amount)
             print(self.d_stake_record['stakeID'])
-            anvil.js.await_promise(self.write_team_contract.earlyEndStakeTeam(self.d_stake_record['stakeID'],int(raw_units*100000000)))
-            while existing_TEAM==int(self.team_contract.balanceOf(self.address).toString()):
+            anvil.js.await_promise(self.main.dh_contract_write.earlyEndStakeToken(self.d_stake_record['stakeID'],int(raw_units*100000000)))
+            while existing_TEAM==int(self.main.pool_contract.balanceOf(self.address).toString()):
               time.sleep(1)
             self.stake_page.refresh_page()
       if t ==self.button_end_completed_stake:
@@ -92,8 +92,8 @@ class stake_record_card(stake_record_cardTemplate):
         a = alert(c, title='Enter Amount to End Stake', buttons=[('End Stake', True), ('Cancel', False)])
         if a:
           raw_units=float(tb.text)
-        anvil.js.await_promise(self.write_team_contract.endCompletedStake(self.d_stake_record['stakeID'],int(raw_units*100000000)))
-        while existing_TEAM==int(self.team_contract.balanceOf(self.address).toString()):
+        anvil.js.await_promise(self.main.dh_contract_write.endCompletedStake(self.d_stake_record['stakeID'],int(raw_units*100000000)))
+        while existing_TEAM==int(self.main.pool_contract.balanceOf(self.address).toString()):
           time.sleep(1)
         self.stake_page.refresh_page()
       if t==self.button_extend_stake:
@@ -102,15 +102,15 @@ class stake_record_card(stake_record_cardTemplate):
         a = alert(title='Are you sure you want to extend your stake into the next staking period?', buttons=[('Yes', True), ('Cancel', False)])
         if a:
           current_expiry = self.d_stake_record['stake_expiry_period']
-          anvil.js.await_promise(self.write_team_contract.extendStake(self.d_stake_record['stakeID']))
-          while current_expiry==int(self.team_contract.stakes(self.address, self.d_stake_record['stakeID'])[3].toString()):
+          anvil.js.await_promise(self.main.dh_contract_write.extendStake(self.d_stake_record['stakeID']))
+          while current_expiry==int(self.main.dh_contract.stakes(self.address, self.d_stake_record['stakeID'])[3].toString()):
             time.sleep(1)
           self.stake_page.refresh_page()
       if t==self.button_restake_completed_stake:
         current_amount_staked = self.d_stake_record['balance']
         c =confirm('This will end your current stake and start a new one in the next period.',title='Are you sure you want to restake?')
         if c:
-          anvil.js.await_promise(self.write_team_contract.restakeExpiredStake(self.d_stake_record['stakeID']))
+          anvil.js.await_promise(self.main.dh_contract_write.restakeExpiredStake(self.d_stake_record['stakeID']))
           while current_amount_staked>0:
             time.sleep(1)
           self.stake_page.refresh_page()
@@ -127,8 +127,8 @@ class stake_record_card(stake_record_cardTemplate):
     self.flow_panel_manage.visible=not self.flow_panel_manage.visible
   
   def claim_function(self, period, ticker, stake_id, **event_args):
-    anvil.js.await_promise(self.write_reward_contract.claimRewards(period, ticker, stake_id))
-    while not self.read_reward_contract.didUserStakeClaimFromPeriod(self.address,stake_id, period,ticker ):
+    anvil.js.await_promise(self.main.srd_contract_write.claimRewards(period, ticker, stake_id))
+    while not self.main.srd_contract.didUserStakeClaimFromPeriod(self.address,stake_id, period,ticker ):
       time.sleep(1)
     self.refresh_card()
     # check if the did claim value is set to true, then we need to refresh the view
