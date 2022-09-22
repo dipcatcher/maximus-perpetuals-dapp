@@ -22,7 +22,7 @@ class stake_record_card(stake_record_cardTemplate):
     self.main=properties['main']
     self.stake_page=properties['stake_page']
     self.refresh_card()
-    self.repeating_panel_1.set_event_handler('x-claim-function', self.claim_function)
+    self.repeating_panel_2.set_event_handler('x-claim-function', self.claim_function)
   def refresh_card(self):
     d_stake_record=self.d_stake_record
     self.current_period = d_stake_record['current_period']
@@ -54,7 +54,7 @@ class stake_record_card(stake_record_cardTemplate):
           d = 9 if token =='HDRN' else 8
           if claimable>0:
             claimable_amounts.append({'stakeID':self.d_stake_record['stakeID'], "token":token, "claimable":float(claimable/(10**d)),'period':k, 'claimed':self.read_reward_contract.didUserStakeClaimFromPeriod(self.address,d_stake_record['stakeID'],k,token )})
-        tt.append({'period':int((k+1)/2), 'amount':float(v/(10**8)), 'total':float(total/(10**8)), 'claimable':claimable_amounts, 'stakeID':self.d_stake_record['stakeID'], 'current_period':self.current_period})
+        tt.append({'period':int((k+1)/2), 'amount':"{:,}".format(int(float(v/(10**8)))), 'total':"{:,}".format(int(float(total/(10**8)))), 'claimable':claimable_amounts, 'stakeID':self.d_stake_record['stakeID'], 'current_period':self.current_period})
         
         #self.label_stake_id.text="Stake ID: {}".format(self.d_stake_record['stakeID'])
     self.team_balance =int(self.main.pool_contract.balanceOf(self.address).toString())
@@ -73,10 +73,10 @@ class stake_record_card(stake_record_cardTemplate):
       if t==self.button_early_end_stake:
         existing_TEAM = self.team_balance
         
-        l = Label(text='Since you are committed to stake through year {} you will experience a 3.69% penalty on any {} you end stake now. Are you sure you want to end stake?'.format(int((self.d_stake_record['stake_expiry_period']+1)/2), self.main.ticker))
+        l = Label(text='Since you are committed to stake through period {} you will experience a 20% penalty on any {} you end stake now. Are you sure you want to end stake?'.format(int((self.d_stake_record['stake_expiry_period']+1)/2), self.main.ticker))
         _ = alert(l, title='Important Early End Stake Penalty Information', buttons=[('Yes', True), ('Cancel', False)])
         if _:
-          tb = early_end_stake(team_balance=self.d_stake_record['amount_actively_staked']/(10**8))
+          tb = early_end_stake(main=self.main,team_balance=self.d_stake_record['amount_actively_staked']/(10**8))
           a = alert(tb, title='Enter Amount to End Stake', buttons=[('End Stake', True), ('Cancel', False)])
           if a:
             raw_units=float(tb.raw_amount)
@@ -131,6 +131,7 @@ class stake_record_card(stake_record_cardTemplate):
 
   
   def claim_function(self, period, ticker, stake_id, **event_args):
+    print('claim function')
     anvil.js.await_promise(self.main.srd_contract_write.claimRewards(period, ticker, stake_id))
     while not self.main.srd_contract.didUserStakeClaimFromPeriod(self.address,stake_id, period,ticker ):
       time.sleep(1)

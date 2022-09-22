@@ -16,8 +16,8 @@ components:
   properties:
     role: null
     columns:
-    - {id: OQEXUE, title: Token, data_key: column_1, $$hashKey: 'object:82177'}
-    - {id: APKIEA, title: Amount, data_key: column_2, $$hashKey: 'object:82178'}
+    - {id: OQEXUE, title: Token, data_key: token, $$hashKey: 'object:82177'}
+    - {id: APKIEA, title: Amount, data_key: claimable, $$hashKey: 'object:82178'}
     - {id: CMEVDI, title: Claimed, data_key: column_3, $$hashKey: 'object:82179'}
     auto_header: true
     tooltip: ''

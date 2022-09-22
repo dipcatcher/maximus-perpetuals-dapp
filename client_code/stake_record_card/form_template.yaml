@@ -100,7 +100,8 @@ components:
       properties:
         role: null
         columns:
-        - {id: DOTCFF, title: Year, data_key: column_1, $$hashKey: 'object:80420'}
+        - {id: DOTCFF, title: Year, data_key: column_1, $$hashKey: 'object:80420',
+          width: 65, expand: false}
         - {id: OSNZHE, title: Amount Locked, data_key: amount, $$hashKey: 'object:80421'}
         - {id: PBCCKM, title: Total Locked, data_key: total, $$hashKey: 'object:80422'}
         auto_header: true

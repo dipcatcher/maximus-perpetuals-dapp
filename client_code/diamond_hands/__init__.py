@@ -72,6 +72,8 @@ class diamond_hands(diamond_handsTemplate):
     return self.main.dh_contract, self.main.pool_contract, self.main.team_contract
 
   def refresh_page(self):
+    self.rich_text_2.content = self.rich_text_2.content.format(ticker=self.ticker)
+    self.rich_text_2_copy.content=self.rich_text_2_copy.content.format(ticker=self.ticker)
     self.pool_balance =int(self.pool_contract.balanceOf(self.address).toString())
     self.label_team_balance.text = '{:,.8f} ❇️'.format(int(self.pool_balance)/100000000)
     self.team_staked = int(self.dh_contract.USER_AMOUNT_STAKED(self.address).toString())
@@ -90,10 +92,10 @@ class diamond_hands(diamond_handsTemplate):
     
     days_remaining = (last_day-current_day)+1
     deadline = datetime.datetime.utcnow().date()+ datetime.timedelta(days=days_remaining)
-    self.label_stake_deadline.text = 'Stake before {} to earn rewards from Staking Year {}'.format(deadline.strftime('%m/%d/%Y @ %H:%M UTC'), y)
+    self.label_stake_deadline.text = 'Stake before {} to earn rewards from Stake Period {}'.format(deadline.strftime('%m/%d/%Y @ %H:%M UTC'), y)
    
     
-    year_text=  "Year {}".format(y)
+    year_text=  "#{}".format(y)
     self.label_next_year.text = year_text
     #self.label_stake_deadline.text ="calculate days remaining" # pool_contract.STAKE_START_DAY - pool_contract.getHexDay()
     self.next_staking_period = self.current_period +1 if self.current_period%2==0 else self.current_period+2
@@ -230,6 +232,12 @@ class diamond_hands(diamond_handsTemplate):
       raise e
       self.button_2_copy.text=self.button_2_copy.text.replace("APPROVING", "APPROVE")
       self.text_box_1_change()
+
+  def link_3_click(self, **event_args):
+    """This method is called when the link is clicked"""
+    a='''Approvals are considered an industry standard across all decentralized finance smart contracts (like Uniswap, PancakeSwap, CowSwap etc.), and protect your wallet from being accessed by a smart contract without your permission. By design, smart contracts can’t access your tokens unless you approve access from your end. By ‘approving’ your tokens, you are give permission to the Maximus Diamond Hand smart contract to transact the amount that you approve. Read the contract code on etherscan to see exactly how the contract interacts with your tokens. Once the amount you approved is transacted, the approved amount gets automatically reset to 0.'''
+    alert(Label(text=a), large=True)
+
 
   
 
