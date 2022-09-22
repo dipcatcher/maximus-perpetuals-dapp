@@ -40,8 +40,13 @@ isStakingPeriod()
 class diamond_hands(diamond_handsTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
-    
+    h = HtmlTemplate(
+      html="""<p><span style="font-size:26px"><strong>Maximus</strong> Diamond Hands</span></p>"""
+    )
+    self.flow_panel_2.add_component(h)
     self.pool_address = properties['pool_address']
+    print('pool:')
+    print(self.pool_address)
     self.main = properties['main']
     self.ticker=self.main.drop_down_1.selected_value.split(' ')[1]
     

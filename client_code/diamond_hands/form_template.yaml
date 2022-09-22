@@ -25,15 +25,7 @@ components:
       foreground: '', visible: true, spacing_above: large, spacing_below: large, background: ''}
     name: flow_panel_2
     layout_properties: {grid_position: 'UOIKTW,CXGAOY'}
-    components:
-    - type: RichText
-      properties: {role: null, align: left, tooltip: '', enable_slots: true, border: '',
-        foreground: '', visible: true, font_size: null, content: '<center><h1 style="font-size:10vw"><b>Maximus
-          </b>Diamond Hands</h1></center>', font: '', spacing_above: small, spacing_below: small,
-        data: null, background: '', format: restricted_html}
-      name: rich_text_1
-      layout_properties: {grid_position: 'MNAYNZ,CLBMSO'}
-      components: []
+    components: []
   - type: Label
     properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
       visible: true, text: Maximus Diamond Hands lets you timelock your Perpetual Pool tokens and amplify your earnings if you remain locked until the stake ends.,
