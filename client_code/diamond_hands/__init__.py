@@ -47,7 +47,7 @@ class diamond_hands(diamond_handsTemplate):
     self.ticker=self.main.drop_down_1.selected_value.split(' ')[1]
     
     self.address =self.main.address
-    self.label_1.text=self.pool_address
+    
     self.dh_contract, self.pool_contract, self.team_contract = self.get_contract_data(self.main.provider, self.ticker)
     self.init_components(**properties)
     self.refresh_page()
@@ -81,6 +81,7 @@ class diamond_hands(diamond_handsTemplate):
     self.team_staked_total = self.dh_contract.GLOBAL_AMOUNT_STAKED().toString()
     #self.label_total_staked.text = '{:,.8f} ❇️'.format(int(self.team_staked_total)/100000000)
     self.current_period = int(self.pool_contract.getCurrentPeriod().toNumber())
+    penalty = 
    
     
     y=(int(1+(self.current_period+1)/2))
@@ -105,10 +106,9 @@ class diamond_hands(diamond_handsTemplate):
     """This method is called when the text in this text box is edited"""
     if self.text_box_1.text in ['', None, 0]:
       self.button_2.text='Stake {}'.format(self.ticker)
-      self.button_2.enabled = True
-      
+      self.button_2.enabled = False
+      self.column_panel_2.visible=False
       self.units=0
-      
     else:
       self.button_2.text = 'Stake {} {}'.format(self.text_box_1.text, self.ticker)
       raw_units = float(self.text_box_1.text)
@@ -144,12 +144,11 @@ class diamond_hands(diamond_handsTemplate):
     raw_units = self.units
     self.button_2.enabled=False
     self.button_2.text='Staking {} {}'.format(raw_units/(10**8), self.ticker)
-    
     existing_TEAM = self.pool_balance
     anvil.js.await_promise(self.main.dh_contract_write.joinClub(raw_units))
     while existing_TEAM==int(self.main.pool_contract.balanceOf(self.address).toString()):
       time.sleep(1)
-    self.button_2.enabled=True
+    self.button_2.enabled=False
     self.button_2.text='Stake {}'.format(self.ticker)
     self.text_box_1.text=None
     self.text_box_1_change(sender=self.text_box_1)

@@ -19,10 +19,11 @@ components:
     border: '', enabled: true, foreground: '', visible: true, text: '', font_size: 16,
     font: '', spacing_above: small, type: number, spacing_below: small, italic: false,
     background: '', bold: false, underline: false}
-  name: text_box_1_copy
+  name: text_box_1
   layout_properties:
     col_widths: {}
     grid_position: XJSHHK,SINHCW
+  event_bindings: {change: text_box_1_change}
 - type: Label
   properties: {role: null, align: left, tooltip: '', border: '', foreground: '', visible: true,
     text: Amount Currently Staked, font_size: null, font: '', spacing_above: small,

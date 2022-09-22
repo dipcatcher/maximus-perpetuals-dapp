@@ -5,6 +5,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import time
+from anvil.js.window import ethers, ethereum
 from ..early_end_stake import early_end_stake
 class stake_record_card(stake_record_cardTemplate):
   def __init__(self, **properties):
@@ -80,8 +81,11 @@ class stake_record_card(stake_record_cardTemplate):
           if a:
             raw_units=float(tb.raw_amount)
             print(self.d_stake_record['stakeID'])
+            print(raw_units)
             anvil.js.await_promise(self.main.dh_contract_write.earlyEndStakeToken(self.d_stake_record['stakeID'],int(raw_units*100000000)))
-            while existing_TEAM==int(self.main.pool_contract.balanceOf(self.address).toString()):
+            
+            while existing_TEAM==int(ethers.Contract(self.main.dh_contract.PERPETUAL_POOL_ADDRESS(), self.main.POOL_ABI, self.main.provider).balanceOf(self.address).toString()):
+              print(existing_TEAM, int(ethers.Contract(self.main.dh_contract.PERPETUAL_POOL_ADDRESS(), self.main.POOL_ABI, self.main.provider).balanceOf(self.address).toString()))
               time.sleep(1)
             self.stake_page.refresh_page()
       if t ==self.button_end_completed_stake:

@@ -2,19 +2,6 @@ container:
   type: ColumnPanel
   properties: {col_widths: '{}'}
 components:
-- type: Link
-  properties: {role: myButton2, url: '', align: left, tooltip: '', border: '', foreground: '',
-    visible: true, text: deployer, font_size: null, wrap_on: mobile, font: '', col_spacing: medium,
-    spacing_above: small, icon_align: left, col_widths: '', spacing_below: small,
-    italic: false, background: '', bold: false, underline: false, icon: ''}
-  name: link_1
-  layout_properties: {grid_position: 'PTMMQE,IISAGW'}
-  event_bindings: {click: link_1_click}
-- type: Label
-  properties: {}
-  name: label_1
-  layout_properties: {grid_position: 'QXXJYB,XVBGAO'}
-  data_bindings: []
 - type: ColumnPanel
   properties: {role: card-blue, tooltip: '', border: 1px solid, foreground: white,
     visible: true, wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
@@ -90,9 +77,9 @@ components:
       grid_position: NLPJXW,EFDEXV
   - type: RichText
     properties: {role: null, align: left, tooltip: '', enable_slots: false, border: '',
-      foreground: '', visible: true, font_size: null, content: '<li>{}% Early unlock
-        penalties from people who leave the DIamond Hands Club before the stake period
-        ends.
+      foreground: '', visible: true, font_size: null, content: '<li>{penalty}% Early
+        unlock penalties from people who leave the DIamond Hands Club before the stake
+        period ends.
 
         <li>369 MAXI Rebate during years 3, 6, and 9
 
@@ -352,7 +339,7 @@ components:
             grid_position: ZXGIGG,FWQMTB
           event_bindings: {click: button_2_copy_click}
     - type: Button
-      properties: {role: null, align: full, tooltip: '', border: '', enabled: true,
+      properties: {role: null, align: full, tooltip: '', border: '', enabled: false,
         foreground: white, visible: true, text: 'Stake {}', font_size: 16, font: '',
         spacing_above: small, icon_align: left, spacing_below: small, italic: false,
         background: '#246BFD', bold: true, underline: false, icon: ''}

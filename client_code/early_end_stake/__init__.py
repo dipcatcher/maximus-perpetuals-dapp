@@ -29,6 +29,8 @@ class early_end_stake(early_end_stakeTemplate):
     self.text_box_1_copy.text=self.team_balance
     self.text_box_1_change(sender=self.text_box_1_copy)
 
+  
+
     
     
     
