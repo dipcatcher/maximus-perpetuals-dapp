@@ -29,7 +29,7 @@ services:
 startup: {type: form, module: Main_copy}
 package_name: Maximus_Perpetual
 allow_embedding: false
-name: Clone of Maximus Perpetuals (2)
+name: Maximus Perpetuals | Diamond Hands
 runtime_options: {version: 2, client_version: '3', server_version: python3-full, server_spec: null}
 metadata: {logo_img: 'asset:mmm 1.png', title: Maximus Perpetuals, description: 'Maximus
     Perpetuals are HEX staking pools of various lengths that repeat forever. '}
