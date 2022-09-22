@@ -22,6 +22,7 @@ class RowTemplate6(RowTemplate6Template):
   def link_claim_click(self, **event_args):
     """This method is called when the link is clicked"""
     if self.link_claim.text=='claim':
+      self.link_claim.text = 'requesting claim'
       self.parent.raise_event('x-click-claim', period=self.item['period'], ticker=self.item['token'], stake_id=self.item['stakeID'])
     #self.reward_contract.claimRewards(self.item['period'], self.item['token'], self.item['stakeID'])
 

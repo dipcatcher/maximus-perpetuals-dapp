@@ -41,7 +41,6 @@ class diamond_hands(diamond_handsTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     
-    
     self.pool_address = properties['pool_address']
     self.main = properties['main']
     self.ticker=self.main.drop_down_1.selected_value.split(' ')[1]
@@ -73,6 +72,7 @@ class diamond_hands(diamond_handsTemplate):
 
   def refresh_page(self):
     self.rich_text_2.content = self.rich_text_2.content.format(ticker=self.ticker)
+    self.label_5.text="{} Staking Rules".format(self.ticker)
     self.rich_text_2_copy.content=self.rich_text_2_copy.content.format(ticker=self.ticker)
     self.pool_balance =int(self.pool_contract.balanceOf(self.address).toString())
     self.label_team_balance.text = '{:,.8f} ❇️'.format(int(self.pool_balance)/100000000)
