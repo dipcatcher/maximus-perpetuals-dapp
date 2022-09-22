@@ -81,7 +81,7 @@ class diamond_hands(diamond_handsTemplate):
     self.team_staked_total = self.dh_contract.GLOBAL_AMOUNT_STAKED().toString()
     #self.label_total_staked.text = '{:,.8f} ❇️'.format(int(self.team_staked_total)/100000000)
     self.current_period = int(self.pool_contract.getCurrentPeriod().toNumber())
-    penalty = 
+    
    
     
     y=(int(1+(self.current_period+1)/2))
