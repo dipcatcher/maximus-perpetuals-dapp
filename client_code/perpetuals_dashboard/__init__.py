@@ -24,10 +24,10 @@ class perpetuals_dashboard(perpetuals_dashboardTemplate):
     except Exception as e:
       raise e
   def refresh_page(self):
-    self.hex_treasury = self.hex_contract.balanceOf(self.pool_address).toNumber()/(10**8)
+    self.hex_treasury = int(self.hex_contract.balanceOf(self.pool_address).toString())/(10**8)
     self.label_treasury_value_hex.text = '{:,.3f} HEX'.format(self.hex_treasury)
     self.label_total_supply_header.text = "Total {} Supply".format(self.ticker)
-    supply_raw = self.pool_contract.totalSupply().toNumber()
+    supply_raw = int(self.pool_contract.totalSupply().toString())
     supply_scaled = supply_raw/self.scalar
     self.base_price = 0.05
     self.label_total_token_supply.text = "{:,.1f} {}".format(supply_scaled, self.ticker)
@@ -45,12 +45,17 @@ class perpetuals_dashboard(perpetuals_dashboardTemplate):
     today = datetime.datetime.utcnow().date()
     
     se = self.pool_contract.STAKE_END_DAY().toNumber()
+    if ss == 0:
+      ss = ed
+      se = ss +self.pool_contract.STAKE_LENGTH().toNumber()
+      
     days_til_end = se - self.hex_day
     days_from_start = self.hex_day-ss
     ssd =today -datetime.timedelta(days=days_from_start)
     sed = today + datetime.timedelta(days=days_til_end)
     self.label_stake_start.text = "HEX Day {}".format(ss)
     self.label_stake_end.text = "HEX Day {}".format(se)
+    
     self.label_stake_start_date.text= ssd.strftime('%m/%d/%Y')
     self.label_stake_end_date.text= sed.strftime('%m/%d/%Y')
     # Any code you write here will run when the form opens.
