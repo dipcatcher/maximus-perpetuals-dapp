@@ -42,7 +42,7 @@ class stake_record_card(stake_record_cardTemplate):
     self.button_claim_rewards.visible=True
     
       
-    self.label_stake_end.text="Year {}".format(int((self.d_stake_record['stake_expiry_period']+1)/2))
+    self.label_stake_end.text="Period {}".format(int((self.d_stake_record['stake_expiry_period']+1)/2))
     self.label_staked_amount.text="{0:,.2f}".format(float(self.d_stake_record['amount_actively_staked']/(10**8)))
     tt =[]
     for k,v in self.d_stake_record['stakedTokensPerPeriod'].items():
