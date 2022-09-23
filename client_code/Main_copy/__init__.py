@@ -5,6 +5,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 from ..disclaimer import disclaimer
+from Maximus_dash.table_dash_copy import table_dash_copy
 
 
 class Main_copy(Main_copyTemplate):
@@ -21,6 +22,7 @@ class Main_copy(Main_copyTemplate):
     
     alert(disclaimer(target=self.target), large=True, dismissible=False, buttons=[])
   
- 
+  
+    
 
 
