@@ -15,6 +15,7 @@ class Main_copy(Main_copyTemplate):
     self.address=None
     self.target= get_url_hash() or "BASE"
     self.target= self.target.upper()
+    
   def button_connect_dapp_click(self, **event_args):
     """This method is called when the button is clicked"""
     

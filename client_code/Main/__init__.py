@@ -43,6 +43,11 @@ class Main(MainTemplate):
     self.ongoing = True
     self.provider=None
     self.target = properties['target']
+  def form_show(self, **event_args):
+    if self.target == 'DIAMONDHANDS':
+      self.target='BASE'
+      self.current = self.link_1
+      print(self.current.text)
     for t in self.drop_down_1.items:
       if self.target in t:
         self.drop_down_1.selected_value=t
@@ -98,7 +103,8 @@ class Main(MainTemplate):
       self.button_connect_dapp.foreground='#8E97CD'
       self.navbar_links.add_component(self.button_connect_dapp)
       self.panel_connect.clear()
-      self.menu_click(sender=self.link_mint)
+      print('!!')
+      #self.menu_click(sender=self.current)
       
   def menu_click(self, **event_args):
     """This method is called when the link is clicked"""
@@ -145,6 +151,21 @@ class Main(MainTemplate):
     
     
     
+    '''self.dh_contract
+    self.dh_contract_write
+    self.pool_contract
+    self.pool_contract_write
+    self.reward_bucket_contract
+    self.reward_bucket_contract_write
+    self.srd_contract
+    self.srd_contract_write'''
+    self.mm = app_tables.media.get(ticker=self.ticker)
+    self.image_1.source = self.mm['logo']
+    self.link_mint.icon=self.mm['logo'].url #"{}/token/logo/{}".format(anvil.server.get_api_origin(), self.ticker)
+    
+    self.menu_click(sender=self.current)
+    print(self.pool_address)
+  def build_connection(self):
     self.dh_address = self.DH_ADDRESSES[self.ticker]
     self.dh_contract = ethers.Contract(self.dh_address, self.DH_CONTRACT_ABI, self.provider)
     self.pool_contract = ethers.Contract(self.dh_contract.PERPETUAL_POOL_ADDRESS(), self.POOL_ABI, self.provider)
@@ -159,21 +180,7 @@ class Main(MainTemplate):
     self.reward_bucket_contract_write = ethers.Contract(rba, self.dhrb_abi, self.signer)
     self.srd_contract = ethers.Contract(srda, self.dhsrda_abi, self.provider)
     self.srd_contract_write =ethers.Contract(srda, self.dhsrda_abi, self.signer)
-    '''self.dh_contract
-    self.dh_contract_write
-    self.pool_contract
-    self.pool_contract_write
-    self.reward_bucket_contract
-    self.reward_bucket_contract_write
-    self.srd_contract
-    self.srd_contract_write'''
-    self.mm = app_tables.media.get(ticker=self.ticker)
-    self.image_1.source = self.mm['logo']
-    self.link_mint.icon=self.mm['logo'].url #"{}/token/logo/{}".format(anvil.server.get_api_origin(), self.ticker)
-    print(self.link_mint.icon)
-    self.menu_click(sender=self.current)
-    print(self.pool_address)
-
+    
   
 
     

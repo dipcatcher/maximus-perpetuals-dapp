@@ -40,6 +40,7 @@ isStakingPeriod()
 class diamond_hands(diamond_handsTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
+    
     h = HtmlTemplate(
       html="""<p><span style="font-size:26px"><strong>Maximus</strong> Diamond Hands</span></p>"""
     )
@@ -51,9 +52,14 @@ class diamond_hands(diamond_handsTemplate):
     self.ticker=self.main.drop_down_1.selected_value.split(' ')[1]
     
     self.address =self.main.address
-    
-    self.dh_contract, self.pool_contract, self.team_contract = self.get_contract_data(self.main.provider, self.ticker)
     self.init_components(**properties)
+    self.rich_text_2.content = self.rich_text_2.content.format(ticker=self.ticker)
+    self.label_5.text="{} Staking Rules".format(self.ticker)
+    self.rich_text_2_copy.content=self.rich_text_2_copy.content.format(ticker=self.ticker)
+  def form_show(self, **event_args):
+    self.main.build_connection()
+    self.dh_contract, self.pool_contract, self.team_contract = self.get_contract_data(self.main.provider, self.ticker)
+    
     self.refresh_page()
     #alert("{:,.1f}".format(int(self.dh_contract.globalStakedTokensPerPeriod(1).toString())/(10**8)))
     # Any code you write here will run when the form opens.
@@ -76,9 +82,7 @@ class diamond_hands(diamond_handsTemplate):
     return self.main.dh_contract, self.main.pool_contract, self.main.team_contract
 
   def refresh_page(self):
-    self.rich_text_2.content = self.rich_text_2.content.format(ticker=self.ticker)
-    self.label_5.text="{} Staking Rules".format(self.ticker)
-    self.rich_text_2_copy.content=self.rich_text_2_copy.content.format(ticker=self.ticker)
+    
     self.pool_balance =int(self.pool_contract.balanceOf(self.address).toString())
     self.label_team_balance.text = '{:,.8f} ❇️'.format(int(self.pool_balance)/100000000)
     self.team_staked = int(self.dh_contract.USER_AMOUNT_STAKED(self.address).toString())
