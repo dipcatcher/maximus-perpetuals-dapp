@@ -102,7 +102,10 @@ class diamond_hands(diamond_handsTemplate):
     days_remaining = (last_day-current_day)+1
     deadline = datetime.datetime.utcnow().date()+ datetime.timedelta(days=days_remaining)
     self.label_stake_deadline.text = 'Stake before {} to earn rewards from Stake Period {}'.format(deadline.strftime('%m/%d/%Y @ %H:%M UTC'), y)
-    print(last_day)
+    
+    if current_day>last_day:
+      self.text_box_1.enabled=False
+      self.button_2.text = 'Diamond Hand Period 1 Is closed.'    
     
     year_text=  "#{}".format(y)
     self.label_next_year.text = year_text
@@ -112,7 +115,7 @@ class diamond_hands(diamond_handsTemplate):
     self.column_panel_stake_list.clear()
     self.column_panel_stake_list.add_component(stake_list(main=self.main, stake_page=self))
     # Any code you write here will run when the form opens.
-
+    
   def text_box_1_change(self, **event_args):
     """This method is called when the text in this text box is edited"""
     if self.text_box_1.text in ['', None, 0]:
