@@ -6,6 +6,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.js
 import time
+import datetime
 class mint_page(mint_pageTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
@@ -23,10 +24,7 @@ class mint_page(mint_pageTemplate):
       raise e
     
   def refresh_mint(self):
-    html = """<script src="https://cdn.logwork.com/widget/countdown.js"></script>
-  <a href="https://logwork.com/countdown-wsd9" class="countdown-timer" data-style="circles" data-timezone="America/Los_Angeles" data-textcolor="#ffffff" data-date="{}" data-digitscolor="#ffffff" data-unitscolor="#ffffff">TEAM Minting Deadline</a>""".format(formatted_date)
-    h = HtmlTemplate(html=html)
-    self.column_panel_countdown.add_component(h)
+    
     self.symbol = self.maxi_contract.symbol()
     self.label_maxi_balance_header.text = "{} balance:".format(self.symbol)
     self.button_2.text = "MINT {}".format(self.symbol)
@@ -41,6 +39,17 @@ class mint_page(mint_pageTemplate):
       self.column_panel_3.visible = False
       
       self.card_1.add_component(Label(text='Minting Phase is Over', foreground='white',align='center'))
+
+    try:
+      
+      formatted_date = (datetime.datetime.utcnow().date() +datetime.timedelta(days=self.minting_phase_end_day-self.hex_day)).strftime('%Y-%m-%d 17:00')#2022-08-19 14:21
+      
+      html = """<script src="https://cdn.logwork.com/widget/countdown.js"></script>
+      <a href="https://logwork.com/countdown-wsd9" class="countdown-timer" data-style="circles" data-timezone="America/Los_Angeles" data-textcolor="#ffffff" data-date="{}" data-digitscolor="#ffffff" data-unitscolor="#ffffff">Minting Deadline</a>""".format(formatted_date)
+      h = HtmlTemplate(html=html)
+      self.column_panel_countdown.add_component(h)
+    except Exception as e:
+      print(e)
     self.label_mint_duration.text= '{} Days Remaining'.format(days_left)
     self.link_hex_balance.text = '{:.8f} ⬣'.format(int(self.hex_balance)/100000000) 
     self.label_maxi_balance.text = '{:.8f} {}'.format(int(self.maxi_balance)/100000000, self.main.mm['symbol'])
