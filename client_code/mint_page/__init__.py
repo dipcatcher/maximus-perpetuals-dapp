@@ -23,6 +23,10 @@ class mint_page(mint_pageTemplate):
       raise e
     
   def refresh_mint(self):
+    html = """<script src="https://cdn.logwork.com/widget/countdown.js"></script>
+  <a href="https://logwork.com/countdown-wsd9" class="countdown-timer" data-style="circles" data-timezone="America/Los_Angeles" data-textcolor="#ffffff" data-date="{}" data-digitscolor="#ffffff" data-unitscolor="#ffffff">TEAM Minting Deadline</a>""".format(formatted_date)
+    h = HtmlTemplate(html=html)
+    self.column_panel_countdown.add_component(h)
     self.symbol = self.maxi_contract.symbol()
     self.label_maxi_balance_header.text = "{} balance:".format(self.symbol)
     self.button_2.text = "MINT {}".format(self.symbol)
