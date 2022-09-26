@@ -102,7 +102,7 @@ class diamond_hands(diamond_handsTemplate):
     days_remaining = (last_day-current_day)+1
     deadline = datetime.datetime.utcnow().date()+ datetime.timedelta(days=days_remaining)
     self.label_stake_deadline.text = 'Stake before {} to earn rewards from Stake Period {}'.format(deadline.strftime('%m/%d/%Y @ %H:%M UTC'), y)
-   
+    print(last_day)
     
     year_text=  "#{}".format(y)
     self.label_next_year.text = year_text
