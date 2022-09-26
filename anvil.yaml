@@ -14,8 +14,6 @@ scheduled_tasks:
 dependencies:
 - app_id: 2XKDZASWBEKTDLDF
   version: {dev: true}
-- app_id: 6E73OYZE3PCYJVGL
-  version: {dev: false}
 - app_id: Y32WORJLG6YJQ7HN
   version: {dev: false}
 services:

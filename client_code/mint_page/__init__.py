@@ -47,6 +47,7 @@ class mint_page(mint_pageTemplate):
       html = """<script src="https://cdn.logwork.com/widget/countdown.js"></script>
       <a href="https://logwork.com/countdown-wsd9" class="countdown-timer" data-style="circles" data-timezone="America/Los_Angeles" data-textcolor="#ffffff" data-date="{}" data-digitscolor="#ffffff" data-unitscolor="#ffffff">Minting Deadline</a>""".format(formatted_date)
       h = HtmlTemplate(html=html)
+      self.column_panel_countdown.clear()
       self.column_panel_countdown.add_component(h)
     except Exception as e:
       print(e)
