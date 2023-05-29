@@ -24,17 +24,22 @@ class disclaimer(disclaimerTemplate):
   def button_1_click(self, **event_args):
     """This method is called when the button is clicked"""
     self.raise_event('x-close-alert', value=True)
+    a = alert("Choose Network", buttons=[("Ethereum", True), ("PulseChain", False)])
+    if a:
+      chain_id = '0x1'
+    else:
+      chain_id = "0x171"
     if is_ethereum:     
       try:
         a = ethereum.request({
                   'method': 'wallet_switchEthereumChain',
-                  'params': [{ "chainId": '0x1' }] #'0x1
+                  'params': [{ "chainId": chain_id }] #'0x1
               })
         anvil.js.await_promise(a)
       except:
         pass
       self.clear()
-      open_form('Main', target=self.target)
+      open_form('Main', target=self.target, chain_id = chain_id)
     else:
       Notification('To use the dapp you must be on an etherem enabled browser, such as MetaMask.').show()
       try:

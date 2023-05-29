@@ -42,6 +42,7 @@ class Main(MainTemplate):
     self.current=self.link_mint
     self.ongoing = True
     self.provider=None
+    self.chain_id = properties['chain_id']
     self.target = properties['target']
   def form_show(self, **event_args):
     if self.target == 'DIAMONDHANDS':
@@ -93,7 +94,7 @@ class Main(MainTemplate):
 
   def button_connect_dapp_click(self, **event_args):
     a=False
-    chain_id='0x1'
+    chain_id=self.chain_id
     self.is_connected = self.web3_wallet.connect_network(chain_id)
     if self.address is not None:
       abbr = '{}...{}'.format(self.address[0:5], self.address[-5:])
