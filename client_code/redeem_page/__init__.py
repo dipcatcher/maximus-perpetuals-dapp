@@ -13,6 +13,7 @@ class redeem_page(redeem_pageTemplate):
     self.main=properties['main']
     self.address = self.main.address
     self.pool_address = properties['pool_address']
+    print(get_open_form().chain_id)
     try:
       if self.main.provider is not None:
         self.maxi_contract, self.hex_contract=self.main.web3_wallet.connect_contracts(self.main.provider, self.pool_address)
@@ -55,12 +56,8 @@ class redeem_page(redeem_pageTemplate):
       if self.redeem_units <= float(self.maxi_balance):
         event_args['sender'].text=event_args['sender'].text.replace('REDEEM', "REDEEMING")
         current_maxi = self.maxi_balance
-        anvil.js.await_promise(self.write_maxi_contract.redeemHEX(self.redeem_units))
-        while current_maxi==self.maxi_contract.balanceOf(self.address).toNumber():
-          time.sleep(.5)
-          print('waiting')
-          print(current_maxi, self.maxi_contract.balanceOf(self.address).toNumber())
-        #self.call_js('redeemHEX', self.redeem_units, self.address)
+        a = anvil.js.await_promise(self.write_maxi_contract.redeemHEX(self.redeem_units))
+        a.wait()
         self.refresh_redeem()
         self.button_redeem_hex.text="REDEEM HEX"
         self.text_box_redeem_maxi.text = 0

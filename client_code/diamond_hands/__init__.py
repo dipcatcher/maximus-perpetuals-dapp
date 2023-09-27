@@ -98,14 +98,21 @@ class diamond_hands(diamond_handsTemplate):
     y=(int(1+(self.current_period+1)/2))
     last_day = self.pool_contract.RELOAD_PHASE_END().toNumber()
     current_day = self.pool_contract.getHexDay().toNumber()
+    stake_start_day = self.pool_contract.STAKE_START_DAY().toNumber()
+    stake_end_day = self.pool_contract.STAKE_END_DAY().toNumber()
+    reload_phase_duration = self.pool_contract.RELOAD_PHASE_DURATION().toNumber()
+    stake_duration = self.pool_contract.STAKE_LENGTH().toNumber()
+    is_stake_period = self.pool_contract.STAKE_IS_ACTIVE()
+    if is_stake_period:
+      stake_days_remaining = stake_end_day - current_day
+      self.label_warning.visible= True
+      next_deadline = datetime.datetime.utcnow().date()+ datetime.timedelta(days=stake_days_remaining+reload_phase_duration+stake_duration)
+      self.label_warning.text = "The current stake period already started, so if you stake right now you are committing to hold through the next stake period, ending around {}.".format(next_deadline.strftime('%m/%d/%Y @ %H:%M UTC'))
     
-    days_remaining = (last_day-current_day)+1
-    deadline = datetime.datetime.utcnow().date()+ datetime.timedelta(days=days_remaining)
-    self.label_stake_deadline.text = 'Stake before {} to earn rewards from Stake Period {}'.format(deadline.strftime('%m/%d/%Y @ %H:%M UTC'), y)
-    
-    if current_day>last_day:
-      self.text_box_1.enabled=False
-      self.button_2.text = 'Diamond Hand Period 1 Is closed.'    
+    else:
+      days_remaining = (last_day-current_day)+1
+      deadline = datetime.datetime.utcnow().date()+ datetime.timedelta(days=days_remaining)
+      self.label_stake_deadline.text = 'Stake before {} to earn rewards from Stake Period {}'.format(deadline.strftime('%m/%d/%Y @ %H:%M UTC'), y)
     
     year_text=  "#{}".format(y)
     self.label_next_year.text = year_text
@@ -159,9 +166,8 @@ class diamond_hands(diamond_handsTemplate):
     self.button_2.enabled=False
     self.button_2.text='Staking {} {}'.format(raw_units/(10**8), self.ticker)
     existing_TEAM = self.pool_balance
-    anvil.js.await_promise(self.main.dh_contract_write.joinClub(raw_units))
-    while existing_TEAM==int(self.main.pool_contract.balanceOf(self.address).toString()):
-      time.sleep(1)
+    a = anvil.js.await_promise(self.main.dh_contract_write.joinClub(raw_units))
+    a.wait()
     self.button_2.enabled=False
     self.button_2.text='Stake {}'.format(self.ticker)
     self.text_box_1.text=None
@@ -223,11 +229,9 @@ class diamond_hands(diamond_handsTemplate):
   def approve_request(self, units):
     try:
       
-      anvil.js.await_promise(self.main.pool_contract_write.approve(self.main.dh_address, units))
+      a = anvil.js.await_promise(self.main.pool_contract_write.approve(self.main.dh_address, units))
       
-      while self.approved_pool<self.units:
-        self.check_approval()
-        time.sleep(1)
+      a.wait()
         
       #self.button_2.text='MINT {}'.format(self.symbol)
       

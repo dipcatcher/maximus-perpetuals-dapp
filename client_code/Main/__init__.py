@@ -95,6 +95,7 @@ class Main(MainTemplate):
   def button_connect_dapp_click(self, **event_args):
     a=False
     chain_id=self.chain_id
+    
     self.is_connected = self.web3_wallet.connect_network(chain_id)
     if self.address is not None:
       abbr = '{}...{}'.format(self.address[0:5], self.address[-5:])

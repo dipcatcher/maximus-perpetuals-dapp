@@ -24,11 +24,13 @@ class disclaimer(disclaimerTemplate):
   def button_1_click(self, **event_args):
     """This method is called when the button is clicked"""
     self.raise_event('x-close-alert', value=True)
-    a = alert("Choose Network", buttons=[("Ethereum", True), ("PulseChain", False)])
-    if a:
+    a = alert("Choose Network", buttons=[("Ethereum", True), ("PulseChain", False), ("Testnet", None)])
+    if a==True:
       chain_id = '0x1'
-    else:
+    elif a == False:
       chain_id = "0x171"
+    elif a ==None:
+      chain_id =  "0x7A69"
     if is_ethereum:     
       try:
         a = ethereum.request({

@@ -34,16 +34,11 @@ class mint_page(mint_pageTemplate):
     self.hex_day = self.maxi_contract.getHexDay().toNumber()
     self.minting_phase_end_day = self.maxi_contract.RELOAD_PHASE_END().toNumber()
     days_left = self.minting_phase_end_day-self.hex_day
-    #self.button_start_stake.visible=True
     if days_left <0:
       self.column_panel_3.visible = False
-      
       self.card_1.add_component(Label(text='Minting Phase is Over', foreground='white',align='center'))
-
     try:
-      
       formatted_date = (datetime.datetime.utcnow().date() +datetime.timedelta(days=self.minting_phase_end_day-self.hex_day)).strftime('%Y-%m-%d 17:00')#2022-08-19 14:21
-      
       html = """<script src="https://cdn.logwork.com/widget/countdown.js"></script>
       <a href="https://logwork.com/countdown-wsd9" class="countdown-timer" data-style="circles" data-timezone="America/Los_Angeles" data-textcolor="#ffffff" data-date="{}" data-digitscolor="#ffffff" data-unitscolor="#ffffff">Minting Deadline</a>""".format(formatted_date)
       h = HtmlTemplate(html=html)
@@ -56,10 +51,8 @@ class mint_page(mint_pageTemplate):
     self.label_maxi_balance.text = '{:.8f} {}'.format(int(self.maxi_balance)/100000000, self.main.mm['symbol'])
     self.redemption_rate = float(self.maxi_contract.HEX_REDEMPTION_RATE().toNumber()/(10**8))
     self.label_headline.text = "Mint {:.8f} {} per HEX pledged".format(1/self.redemption_rate,self.symbol)
-    # Any code you write here will run when the form opens.
     rt = "<h1><b>Maximus </b>{}</h1>".format(self.symbol)
     self.rich_text_1.content=rt
-    
     self.image_symbol.source=self.main.mm['logo']
     self.label_intro.text= self.label_intro.text.format(symbol=self.main.mm['ticker'], stake_years = int(self.main.mm['days_staked']/365))
     self.rich_text_description.content=self.rich_text_description.content.format(symbol=self.main.mm['ticker'], stake_length=self.main.mm['days_staked'])    
@@ -107,15 +100,8 @@ class mint_page(mint_pageTemplate):
     self.text_box_1_change(sender=self.text_box_1)
   def approve_request(self, units):
     try:
-      anvil.js.await_promise(self.write_hex_contract.approve(self.main.web3_wallet.MAXI_CONTRACT_ADDRESS, units))
-      
-      while self.approved_hex<self.units:
-        self.check_approval()
-        time.sleep(1)
-        
-      #self.button_2.text='MINT {}'.format(self.symbol)
-      
-      #self.column_panel_2.visible=False
+      a = anvil.js.await_promise(self.write_hex_contract.approve(self.main.web3_wallet.MAXI_CONTRACT_ADDRESS, units))
+      a.wait()
       self.label_1.visible=False
       self.link_3.visible=False
       self.button_2_copy.text=self.button_2_copy.text.replace("APPROVING", "APPROVED")
@@ -163,9 +149,8 @@ class mint_page(mint_pageTemplate):
       self.button_2.text='MINTING {:.8f} {}'.format(raw_units/self.redemption_rate, self.symbol)
       
       existing_hex = self.hex_balance
-      anvil.js.await_promise(self.write_maxi_contract.pledgeHEX(units))
-      while existing_hex==self.hex_contract.balanceOf(self.address).toNumber():
-        time.sleep(1)
+      a = anvil.js.await_promise(self.write_maxi_contract.pledgeHEX(units))
+      a.wait()
       self.button_2.enabled=True
       self.button_2.text='MINT {}'.format(self.symbol)
       self.text_box_1.text=None
@@ -180,6 +165,7 @@ class mint_page(mint_pageTemplate):
     """This method is called when the link is clicked"""
     c=ColumnPanel()
     l = Label(text='Get HEX on Uniswap')
+    
     li = Link(text='https://app.uniswap.org/#/swap?inputCurrency=0x2b591e99afe9f32eaa6214f7b7629768c40eeb39&outputCurrency=0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&chain=mainnet',url='https://app.uniswap.org/#/swap?inputCurrency=0x2b591e99afe9f32eaa6214f7b7629768c40eeb39&outputCurrency=0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&chain=mainnet')
 
     c.add_component(l)
