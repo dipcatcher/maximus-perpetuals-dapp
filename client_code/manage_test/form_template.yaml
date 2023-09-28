@@ -1,38 +1,85 @@
 container:
   type: ColumnPanel
-  properties: {col_widths: '{}'}
+  properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+    spacing_below: small, background: 'theme:White'}
 components:
+- type: GridPanel
+  properties: {}
+  name: grid_panel_1
+  layout_properties: {grid_position: 'IRYUEM,AXBEEJ'}
+  components:
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: 'Pool Address:', font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: true,
+      underline: false, icon: ''}
+    name: label_5
+    layout_properties: {row: RYFHBT, width_xs: 2, col_xs: 0, width: 99.9844}
+  - type: Label
+    properties: {}
+    name: label_1
+    layout_properties: {grid_position: 'DUXOFU,EFVESE', row: RYFHBT, width_xs: 5,
+      col_xs: 2}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: 'Stake Index:', font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: true,
+      underline: false, icon: ''}
+    name: label_3
+    layout_properties: {row: NPYKDN, width_xs: 2, col_xs: 0}
+  - type: Label
+    properties: {}
+    name: text_box_index
+    layout_properties: {grid_position: 'FMFEXM,OUYZVH', row: NPYKDN, width_xs: 2,
+      col_xs: 2}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: 'Stake ID:', font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: true,
+      underline: false, icon: ''}
+    name: label_4
+    layout_properties: {row: MWTHSB, width_xs: 2, col_xs: 0}
+  - type: Label
+    properties: {}
+    name: text_box_id
+    layout_properties: {grid_position: 'PAFMUE,YRKLCG', row: MWTHSB, width_xs: 2,
+      col_xs: 2}
 - type: Label
   properties: {}
-  name: label_1
-  layout_properties: {grid_position: 'DUXOFU,EFVESE'}
-- type: TextBox
-  properties: {role: null, align: left, hide_text: false, tooltip: '', placeholder: index,
-    border: '', enabled: true, foreground: '', visible: true, text: '', font_size: null,
-    font: '', spacing_above: small, type: text, spacing_below: small, italic: false,
-    background: '', bold: false, underline: false}
-  name: text_box_index
-  layout_properties: {grid_position: 'INNZWV,KEZDSR'}
-- type: TextBox
-  properties: {role: null, align: left, hide_text: false, tooltip: '', placeholder: id,
-    border: '', enabled: true, foreground: '', visible: true, text: '', font_size: null,
-    font: '', spacing_above: small, type: text, spacing_below: small, italic: false,
-    background: '', bold: false, underline: false}
-  name: text_box_id
-  layout_properties:
-    col_widths: {}
-    grid_position: FYTZWD,WNSBRP
+  name: label_2
+  layout_properties: {grid_position: 'WVOVDI,AQGPKS'}
+- type: Label
+  properties: {role: null, align: left, tooltip: '', border: '', foreground: '', visible: true,
+    text: 'The Mint Hedron function should be run on the last day of the stake, before
+      it is ended. This HDRN goes to TEAM stakers as an expression of gratitude for
+      making all this possible. Check the block explorer to see if this has been run
+      already today or else you will pay gas for no reason.', font_size: null, font: '',
+    spacing_above: small, icon_align: left, spacing_below: small, italic: false, background: '',
+    bold: false, underline: false, icon: ''}
+  name: label_6
+  layout_properties: {grid_position: 'NKJLLB,LTGWEN'}
 - type: Button
-  properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+  properties: {role: raised, align: center, tooltip: '', border: '', enabled: true,
     foreground: '', visible: true, text: 'mint hedron
 
       ', font_size: null, font: '', spacing_above: small, icon_align: left, spacing_below: small,
     italic: false, background: '', bold: false, underline: false, icon: ''}
   name: button_mint_hedron
-  layout_properties: {grid_position: 'RTMONQ,YWOJHY'}
+  layout_properties: {grid_position: 'XOFSFU,AJCOLI'}
   event_bindings: {click: button_mint_hedron_click}
+- type: Label
+  properties: {role: null, align: left, tooltip: '', border: '', foreground: '', visible: true,
+    text: 'When The stake is eligible to end, someone needs to run the end stake function.
+      This only will be able to be run once.', font_size: null, font: '', spacing_above: small,
+    icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+    underline: false, icon: ''}
+  name: label_6_copy
+  layout_properties:
+    col_widths: {}
+    grid_position: AUQOQL,AACKFK
 - type: Button
-  properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+  properties: {role: raised, align: center, tooltip: '', border: '', enabled: true,
     foreground: '', visible: true, text: 'end stake
 
       ', font_size: null, font: '', spacing_above: small, icon_align: left, spacing_below: small,
@@ -42,16 +89,20 @@ components:
     col_widths: {}
     grid_position: TVHJTQ,APGPWP
   event_bindings: {click: button_end_stake_click}
+- type: Label
+  properties: {role: null, align: left, tooltip: '', border: '', foreground: '', visible: true,
+    text: 'When the reload phase ends, someone needs to run the start stake function.  This
+      only may be run once.', font_size: null, font: '', spacing_above: small, icon_align: left,
+    spacing_below: small, italic: false, background: '', bold: false, underline: false,
+    icon: ''}
+  name: label_7
+  layout_properties: {grid_position: 'NAOOJE,YDRONN'}
 - type: Button
-  properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+  properties: {role: raised, align: center, tooltip: '', border: '', enabled: true,
     foreground: '', visible: true, text: start stake, font_size: null, font: '', spacing_above: small,
     icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
     underline: false, icon: ''}
   name: button_1
   layout_properties: {grid_position: 'MDCGDI,SHBPRH'}
   event_bindings: {click: button_1_click}
-- type: Label
-  properties: {}
-  name: label_2
-  layout_properties: {grid_position: 'BMUVCZ,CJSBEU'}
 is_package: true

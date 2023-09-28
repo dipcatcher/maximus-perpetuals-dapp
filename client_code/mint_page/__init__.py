@@ -111,7 +111,10 @@ class mint_page(mint_pageTemplate):
       self.button_2_copy.icon='fa:check'
       self.button_2.enabled=True
     except Exception as e:
-      raise e
+      try:
+        alert(e.original_error.reason)
+      except:
+        alert(e.original_error.message)
       self.button_2_copy.text=self.button_2_copy.text.replace("APPROVING", "APPROVE")
       self.text_box_1_change()
   def button_2_copy_click(self, **event_args):
@@ -149,17 +152,23 @@ class mint_page(mint_pageTemplate):
       self.button_2.text='MINTING {:.8f} {}'.format(raw_units/self.redemption_rate, self.symbol)
       
       existing_hex = self.hex_balance
-      a = anvil.js.await_promise(self.write_maxi_contract.pledgeHEX(units))
-      a.wait()
-      self.button_2.enabled=True
-      self.button_2.text='MINT {}'.format(self.symbol)
-      self.text_box_1.text=None
-      self.text_box_1_change(sender=self.text_box_1)
-      self.button_2_copy.enabled=True
-      self.button_2_copy.background='#246BFD'
-      self.button_2.foreground='white'
-      self.button_2_copy.icon=''
-      self.refresh_mint()
+      try:
+        a = anvil.js.await_promise(self.write_maxi_contract.pledgeHEX(units))
+        a.wait()
+        self.button_2.enabled=True
+        self.button_2.text='MINT {}'.format(self.symbol)
+        self.text_box_1.text=None
+        self.text_box_1_change(sender=self.text_box_1)
+        self.button_2_copy.enabled=True
+        self.button_2_copy.background='#246BFD'
+        self.button_2.foreground='white'
+        self.button_2_copy.icon=''
+        self.refresh_mint()
+      except Exception as e:
+        try:
+          alert(e.original_error.reason)
+        except:
+          alert(e.original_error.message)
 
   def link_need_hex_click(self, **event_args):
     """This method is called when the link is clicked"""

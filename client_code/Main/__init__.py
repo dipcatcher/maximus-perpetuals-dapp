@@ -18,6 +18,7 @@ try:
   from ..disclaimer_copy import disclaimer_copy
   from ..chain_interface import chain_interface
   from ..Main_copy import Main_copy
+  from ..manage_test import manage_test
   from ..perpetuals_dashboard import perpetuals_dashboard
 except:
   
@@ -137,6 +138,12 @@ class Main(MainTemplate):
     if b=='Calculator':
       self.content_panel.clear()
       self.c=calculator_page()
+      self.content_panel.add_component(self.c)
+    if b == "Operate Stake":
+      self.content_panel.clear()
+      self.build_connection()
+      
+      self.c = manage_test(pool_address = self.pool_address, write_contract = self.pool_contract_write, read_contract=self.pool_contract)
       self.content_panel.add_component(self.c)
 
   def link_disclaimer_click(self, **event_args):
