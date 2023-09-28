@@ -105,4 +105,29 @@ components:
   name: button_1
   layout_properties: {grid_position: 'MDCGDI,SHBPRH'}
   event_bindings: {click: button_1_click}
+- type: DataGrid
+  properties:
+    role: null
+    columns:
+    - {id: SCELKM, title: Token, data_key: Token, $$hashKey: 'object:110855'}
+    - {id: MFNAAO, title: Reward Bucket Balance, data_key: Balance, $$hashKey: 'object:110856'}
+    - {id: DUFHSJ, title: Finalize, data_key: column_3, $$hashKey: 'object:110857'}
+    auto_header: true
+    tooltip: ''
+    border: ''
+    foreground: ''
+    rows_per_page: 20
+    visible: true
+    wrap_on: never
+    show_page_controls: true
+    spacing_above: small
+    spacing_below: small
+    background: ''
+  name: data_grid_1
+  layout_properties: {grid_position: 'HJLIQW,VYFPXZ'}
+  components:
+  - type: RepeatingPanel
+    properties: {spacing_above: none, spacing_below: none, item_template: manage_test.RowTemplate9}
+    name: repeating_panel_1
+    layout_properties: {}
 is_package: true
