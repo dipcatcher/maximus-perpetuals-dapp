@@ -12,6 +12,7 @@ class RowTemplate5(RowTemplate5Template):
     
     
     self.link_1.text = self.item['period']
+    alert(self.item['claimable'])
     
 
     # Any code you write here will run when the form opens.

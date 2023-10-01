@@ -5,7 +5,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import datetime
-
+import anvil.http
 class perpetuals_dashboard(perpetuals_dashboardTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
@@ -13,6 +13,8 @@ class perpetuals_dashboard(perpetuals_dashboardTemplate):
     self.main=properties['main']
     self.pool_address = properties['pool_address']
     self.ticker = properties['ticker']
+    self.chain_id = self.main.chain_id
+    
     self.address = self.main.address
     self.scalar= 10**8
     
@@ -23,13 +25,21 @@ class perpetuals_dashboard(perpetuals_dashboardTemplate):
         self.refresh_page()
     except Exception as e:
       raise e
+  def get_price(self):
+    if self.chain_id=="0x1":
+      url = "https://api.dexscreener.com/latest/dex/pairs/ethereum/0x69d91b94f0aaf8e8a2586909fa77a5c2c89818d5"
+    elif self.chain_id == "0x171":
+      url  = "https://api.dexscreener.com/latest/dex/pairs/pulsechain/0x6f1747370b1cacb911ad6d4477b718633db328c8"
+    r = anvil.http.request(url, json=True)
+    price = r['pairs'][0]['priceNative']
+    return float(price)
   def refresh_page(self):
     self.hex_treasury = int(self.hex_contract.balanceOf(self.pool_address).toString())/(10**8)
     self.label_treasury_value_hex.text = '{:,.3f} HEX'.format(self.hex_treasury)
     self.label_total_supply_header.text = "Total {} Supply".format(self.ticker)
     supply_raw = int(self.pool_contract.totalSupply().toString())
     supply_scaled = supply_raw/self.scalar
-    self.base_price = 0.05
+    self.base_price = self.get_price()
     self.label_total_token_supply.text = "{:,.1f} {}".format(supply_scaled, self.ticker)
     self.market_cap.text = "${:,.2f}".format(self.base_price*supply_scaled)
     self.hex_day = self.pool_contract.getHexDay().toNumber()

@@ -18,6 +18,7 @@ try:
   from ..disclaimer_copy import disclaimer_copy
   from ..chain_interface import chain_interface
   from ..Main_copy import Main_copy
+  from ..manage_test import manage_test
   from ..perpetuals_dashboard import perpetuals_dashboard
 except:
   
@@ -95,6 +96,7 @@ class Main(MainTemplate):
   def button_connect_dapp_click(self, **event_args):
     a=False
     chain_id=self.chain_id
+    
     self.is_connected = self.web3_wallet.connect_network(chain_id)
     if self.address is not None:
       abbr = '{}...{}'.format(self.address[0:5], self.address[-5:])
@@ -130,12 +132,17 @@ class Main(MainTemplate):
 
     if b =='Dashboard':
       self.content_panel.clear()
-      from ..offline_dashboard import offline_dashboard
       self.d = perpetuals_dashboard(main=self, pool_address=self.pool_address, ticker=self.ticker)#offline_dashboard(main=self) #dashboard_page(main=self)
       self.content_panel.add_component(self.d)
     if b=='Calculator':
       self.content_panel.clear()
       self.c=calculator_page()
+      self.content_panel.add_component(self.c)
+    if b == "Operate Stake":
+      self.content_panel.clear()
+      self.build_connection()
+      
+      self.c = manage_test(pool_address = self.pool_address, write_contract = self.pool_contract_write, read_contract=self.pool_contract)
       self.content_panel.add_component(self.c)
 
   def link_disclaimer_click(self, **event_args):

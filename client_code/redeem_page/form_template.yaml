@@ -60,10 +60,10 @@ components:
             components:
             - type: TextBox
               properties: {role: null, align: left, hide_text: false, tooltip: '',
-                placeholder: '100000', border: '', enabled: true, foreground: white,
-                visible: true, text: '', font_size: 16, font: '', spacing_above: small,
-                type: number, spacing_below: small, italic: false, background: '#06132D',
-                bold: false, underline: false}
+                placeholder: '', border: '', enabled: true, foreground: white, visible: true,
+                text: '', font_size: 16, font: '', spacing_above: small, type: number,
+                spacing_below: small, italic: false, background: '#06132D', bold: false,
+                underline: false}
               name: text_box_redeem_maxi
               layout_properties:
                 col_widths: {}
@@ -72,8 +72,8 @@ components:
                 width_xs: 12
                 col_xs: 0
                 x: 0
-                y: 7.9687999999999874
-                width: 329.01
+                y: 7.96875
+                width: 309
               event_bindings: {change: text_box_redeem_maxi_change}
             - type: Link
               properties: {role: null, url: '', align: left, tooltip: '', border: '',
@@ -83,7 +83,7 @@ components:
                 background: '', bold: false, underline: false, icon: ''}
               name: link_max_maxi
               layout_properties: {grid_position: 'VBTACA,KTZXFE', row: HRKDVQ, width_xs: 4,
-                col_xs: 2, x: 244.01, y: 7.96875, width: 81.007}
+                col_xs: 2, x: 244, y: 7.96875, width: 81}
               components: []
               event_bindings: {click: link_max_maxi_click}
           - type: FlowPanel
