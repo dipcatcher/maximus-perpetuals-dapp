@@ -68,7 +68,7 @@ class stake_record_card(stake_record_cardTemplate):
     self.team_staked_total = self.main.dh_contract.GLOBAL_AMOUNT_STAKED().toString()
     self.repeating_panel_2.items=tt
     print('rp')
-    alert(tt)
+    
   def menu_click(self, **event_args):
     
       t = event_args['sender']
