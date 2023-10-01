@@ -66,6 +66,7 @@ class offline_dashboard(offline_dashboardTemplate):
     self.label_stake_start.text="HEX day {}".format(results['Stake Start Day'])
     self.label_stake_end.text="HEX day {}".format(results['Stake End Day'])
     self.label_treasury_value_hex.text = '{:,} HEX'.format(self.hex_treasury)
+    
     url='https://uniswapdataapi.azurewebsites.net/api/hexPrice'
     r = anvil.http.request(url,json=True)
     self.hex_price=float(r['hexUsd'])

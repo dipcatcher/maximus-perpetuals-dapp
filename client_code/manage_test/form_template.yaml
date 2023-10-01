@@ -54,7 +54,7 @@ components:
     text: 'The Mint Hedron function should be run on the last day of the stake, before
       it is ended. This HDRN goes to TEAM stakers as an expression of gratitude for
       making all this possible. Check the block explorer to see if this has been run
-      already today or else you will pay gas for no reason.', font_size: null, font: '',
+      already today or else you will pay gas for no reason. ', font_size: null, font: '',
     spacing_above: small, icon_align: left, spacing_below: small, italic: false, background: '',
     bold: false, underline: false, icon: ''}
   name: label_6

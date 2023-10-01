@@ -132,7 +132,6 @@ class Main(MainTemplate):
 
     if b =='Dashboard':
       self.content_panel.clear()
-      from ..offline_dashboard import offline_dashboard
       self.d = perpetuals_dashboard(main=self, pool_address=self.pool_address, ticker=self.ticker)#offline_dashboard(main=self) #dashboard_page(main=self)
       self.content_panel.add_component(self.d)
     if b=='Calculator':
