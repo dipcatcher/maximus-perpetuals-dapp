@@ -155,6 +155,15 @@ class mint_page(mint_pageTemplate):
       try:
         a = anvil.js.await_promise(self.write_maxi_contract.pledgeHEX(units))
         a.wait()
+        try:
+          treasury = int(self.hex_contract.balanceOf(self.pool_address).toString())/(10**8)
+          text = "{}...{} minted {:,} 🟠 BASE! Current Treasury Value: {:,} HEX. https://perpetuals.maximus.cash/#BASE".format(self.address[0:4], 
+                                                                                                                              self.address[-4:],
+                                                                                                                              int(raw_units/self.redemption_rate), 
+                                                                                                                              int(treasury))
+          anvil.server.call("tweet", text)
+        except Exception as e:
+          print("TWEET ERROR", str(e))
         self.button_2.enabled=True
         self.button_2.text='MINT {}'.format(self.symbol)
         self.text_box_1.text=None
