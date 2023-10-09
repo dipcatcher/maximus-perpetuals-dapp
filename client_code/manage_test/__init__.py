@@ -26,6 +26,7 @@ class manage_test(manage_testTemplate):
     self.button_end_stake.enabled = all(end)
     start = [not is_active, h>me]
     self.button_1.enabled=all(start)
+    self.show_start = self.button_1.enabled
     self.button_mint_hedron.enabled = is_active
     
     self.label_2.text="Current day: {}\nMint start day: {} Mint end day:{}\nStake start day: {} Stake end day: {}".format(h,ms, me, ss, se)
@@ -107,7 +108,7 @@ class manage_test(manage_testTemplate):
         alert(e.original_error.reason)
       except:
         alert(e.original_error.message)
-      event_args['sender'].enabled=True
+      event_args['sender'].enabled=self.show_start
 
 
 
