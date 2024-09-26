@@ -1,133 +1,132 @@
-container:
-  type: ColumnPanel
-  properties: {role: card-blue, tooltip: '', border: '', foreground: '', visible: true,
-    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
-    spacing_below: small, background: 'theme:White'}
 components:
-- type: GridPanel
-  properties: {}
-  name: grid_panel_1
-  layout_properties: {grid_position: 'IRYUEM,AXBEEJ'}
-  components:
-  - type: Label
-    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
-      visible: true, text: 'Pool Address:', font_size: null, font: '', spacing_above: small,
-      icon_align: left, spacing_below: small, italic: false, background: '', bold: true,
-      underline: false, icon: ''}
+- components:
+  - layout_properties: {col_xs: 0, row: RYFHBT, width: 99.9844, width_xs: 2}
     name: label_5
-    layout_properties: {row: RYFHBT, width_xs: 2, col_xs: 0, width: 99.9844}
-  - type: Label
-    properties: {}
+    properties: {align: left, background: '', bold: true, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: 'Pool Address:', tooltip: '', underline: false, visible: true}
+    type: Label
+  - layout_properties: {col_xs: 2, grid_position: 'DUXOFU,EFVESE', row: RYFHBT, width_xs: 5}
     name: label_1
-    layout_properties: {grid_position: 'DUXOFU,EFVESE', row: RYFHBT, width_xs: 5,
-      col_xs: 2}
-  - type: Label
-    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
-      visible: true, text: 'Stake Index:', font_size: null, font: '', spacing_above: small,
-      icon_align: left, spacing_below: small, italic: false, background: '', bold: true,
-      underline: false, icon: ''}
+    properties: {}
+    type: Label
+  - layout_properties: {col_xs: 0, row: NPYKDN, width_xs: 2}
     name: label_3
-    layout_properties: {row: NPYKDN, width_xs: 2, col_xs: 0}
-  - type: Label
-    properties: {}
+    properties: {align: left, background: '', bold: true, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: 'Stake Index:', tooltip: '', underline: false, visible: true}
+    type: Label
+  - layout_properties: {col_xs: 2, grid_position: 'FMFEXM,OUYZVH', row: NPYKDN, width_xs: 2}
     name: text_box_index
-    layout_properties: {grid_position: 'FMFEXM,OUYZVH', row: NPYKDN, width_xs: 2,
-      col_xs: 2}
-  - type: Label
-    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
-      visible: true, text: 'Stake ID:', font_size: null, font: '', spacing_above: small,
-      icon_align: left, spacing_below: small, italic: false, background: '', bold: true,
-      underline: false, icon: ''}
-    name: label_4
-    layout_properties: {row: MWTHSB, width_xs: 2, col_xs: 0}
-  - type: Label
     properties: {}
+    type: Label
+  - layout_properties: {col_xs: 0, row: MWTHSB, width_xs: 2}
+    name: label_4
+    properties: {align: left, background: '', bold: true, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: 'Stake ID:', tooltip: '', underline: false, visible: true}
+    type: Label
+  - layout_properties: {col_xs: 2, grid_position: 'PAFMUE,YRKLCG', row: MWTHSB, width_xs: 2}
     name: text_box_id
-    layout_properties: {grid_position: 'PAFMUE,YRKLCG', row: MWTHSB, width_xs: 2,
-      col_xs: 2}
-- type: Label
+    properties: {}
+    type: Label
+  layout_properties: {grid_position: 'IRYUEM,AXBEEJ'}
+  name: grid_panel_1
   properties: {}
+  type: GridPanel
+- layout_properties: {grid_position: 'WVOVDI,AQGPKS'}
   name: label_2
-  layout_properties: {grid_position: 'WVOVDI,AQGPKS'}
-- type: Label
-  properties: {role: null, align: left, tooltip: '', border: '', foreground: '', visible: true,
-    text: 'The Mint Hedron function should be run on the last day of the stake, before
-      it is ended. This HDRN goes to TEAM stakers as an expression of gratitude for
-      making all this possible. Check the block explorer to see if this has been run
-      already today or else you will pay gas for no reason. ', font_size: null, font: '',
-    spacing_above: small, icon_align: left, spacing_below: small, italic: false, background: '',
-    bold: false, underline: false, icon: ''}
+  properties: {}
+  type: Label
+- layout_properties: {grid_position: 'NKJLLB,LTGWEN'}
   name: label_6
-  layout_properties: {grid_position: 'NKJLLB,LTGWEN'}
-- type: Button
-  properties: {role: raised, align: center, tooltip: '', border: '', enabled: true,
-    foreground: '', visible: true, text: 'mint hedron
-
-      ', font_size: null, font: '', spacing_above: small, icon_align: left, spacing_below: small,
-    italic: false, background: '', bold: false, underline: false, icon: ''}
-  name: button_mint_hedron
+  properties: {align: left, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: 'The Mint Hedron function should be run on the last day of the stake, before it is ended. This HDRN goes to TEAM stakers as an expression of gratitude for making all this possible. Check the block explorer to see if this has been run already today or else you will pay gas for no reason. ', tooltip: '', underline: false, visible: true}
+  type: Label
+- event_bindings: {click: button_mint_hedron_click}
   layout_properties: {grid_position: 'XOFSFU,AJCOLI'}
-  event_bindings: {click: button_mint_hedron_click}
-- type: Label
-  properties: {role: null, align: left, tooltip: '', border: '', foreground: '', visible: true,
-    text: 'When The stake is eligible to end, someone needs to run the end stake function.
-      This only will be able to be run once.', font_size: null, font: '', spacing_above: small,
-    icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-    underline: false, icon: ''}
-  name: label_6_copy
-  layout_properties:
+  name: button_mint_hedron
+  properties:
+    align: center
+    background: ''
+    bold: false
+    border: ''
+    enabled: true
+    font: ''
+    font_size: null
+    foreground: ''
+    icon: ''
+    icon_align: left
+    italic: false
+    role: raised
+    spacing_above: small
+    spacing_below: small
+    text: |
+      mint hedron
+    tooltip: ''
+    underline: false
+    visible: true
+  type: Button
+- layout_properties:
     col_widths: {}
     grid_position: AUQOQL,AACKFK
-- type: Button
-  properties: {role: raised, align: center, tooltip: '', border: '', enabled: true,
-    foreground: '', visible: true, text: 'end stake
-
-      ', font_size: null, font: '', spacing_above: small, icon_align: left, spacing_below: small,
-    italic: false, background: '', bold: false, underline: false, icon: ''}
-  name: button_end_stake
+  name: label_6_copy
+  properties: {align: left, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: 'When The stake is eligible to end, someone needs to run the end stake function. This only will be able to be run once.', tooltip: '', underline: false, visible: true}
+  type: Label
+- event_bindings: {click: button_end_stake_click}
   layout_properties:
     col_widths: {}
     grid_position: TVHJTQ,APGPWP
-  event_bindings: {click: button_end_stake_click}
-- type: Label
-  properties: {role: null, align: left, tooltip: '', border: '', foreground: '', visible: true,
-    text: 'When the reload phase ends, someone needs to run the start stake function.  This
-      only may be run once.', font_size: null, font: '', spacing_above: small, icon_align: left,
-    spacing_below: small, italic: false, background: '', bold: false, underline: false,
-    icon: ''}
-  name: label_7
-  layout_properties: {grid_position: 'NAOOJE,YDRONN'}
-- type: Button
-  properties: {role: raised, align: center, tooltip: '', border: '', enabled: true,
-    foreground: '', visible: true, text: start stake, font_size: null, font: '', spacing_above: small,
-    icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-    underline: false, icon: ''}
-  name: button_1
-  layout_properties: {grid_position: 'MDCGDI,SHBPRH'}
-  event_bindings: {click: button_1_click}
-- type: DataGrid
+  name: button_end_stake
   properties:
-    role: null
-    columns:
-    - {id: SCELKM, title: Token, data_key: Token, $$hashKey: 'object:110855'}
-    - {id: MFNAAO, title: Reward Bucket Balance, data_key: Balance, $$hashKey: 'object:110856'}
-    - {id: DUFHSJ, title: Finalize, data_key: column_3, $$hashKey: 'object:110857'}
-    auto_header: true
-    tooltip: ''
+    align: center
+    background: ''
+    bold: false
     border: ''
+    enabled: true
+    font: ''
+    font_size: null
     foreground: ''
-    rows_per_page: 20
+    icon: ''
+    icon_align: left
+    italic: false
+    role: raised
+    spacing_above: small
+    spacing_below: small
+    text: |
+      end stake
+    tooltip: ''
+    underline: false
     visible: true
-    wrap_on: never
+  type: Button
+- layout_properties: {grid_position: 'NAOOJE,YDRONN'}
+  name: label_7
+  properties: {align: left, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: 'When the reload phase ends, someone needs to run the start stake function.  This only may be run once.', tooltip: '', underline: false, visible: true}
+  type: Label
+- event_bindings: {click: button_1_click}
+  layout_properties: {grid_position: 'MDCGDI,SHBPRH'}
+  name: button_1
+  properties: {align: center, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: raised, spacing_above: small, spacing_below: small, text: start stake, tooltip: '', underline: false, visible: true}
+  type: Button
+- components:
+  - layout_properties: {}
+    name: repeating_panel_1
+    properties: {item_template: manage_test.RowTemplate9, spacing_above: none, spacing_below: none}
+    type: RepeatingPanel
+  layout_properties: {grid_position: 'HJLIQW,VYFPXZ'}
+  name: data_grid_1
+  properties:
+    auto_header: true
+    background: ''
+    border: ''
+    columns:
+    - {$$hashKey: 'object:110855', data_key: Token, id: SCELKM, title: Token}
+    - {$$hashKey: 'object:110856', data_key: Balance, id: MFNAAO, title: Reward Bucket Balance}
+    - {$$hashKey: 'object:110857', data_key: column_3, id: DUFHSJ, title: Finalize}
+    foreground: ''
+    role: null
+    rows_per_page: 20
     show_page_controls: true
     spacing_above: small
     spacing_below: small
-    background: ''
-  name: data_grid_1
-  layout_properties: {grid_position: 'HJLIQW,VYFPXZ'}
-  components:
-  - type: RepeatingPanel
-    properties: {spacing_above: none, spacing_below: none, item_template: manage_test.RowTemplate9}
-    name: repeating_panel_1
-    layout_properties: {}
+    tooltip: ''
+    visible: true
+    wrap_on: never
+  type: DataGrid
+container:
+  properties: {background: 'theme:White', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: card-blue, spacing_above: small, spacing_below: small, tooltip: '', visible: true, wrap_on: mobile}
+  type: ColumnPanel
 is_package: true

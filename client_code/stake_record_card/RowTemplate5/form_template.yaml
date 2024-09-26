@@ -1,40 +1,35 @@
-container:
-  type: DataRowPanel
-  properties: {role: rounded-border, align: left, tooltip: '', border: '', foreground: '',
-    auto_display_data: true, visible: true, font_size: null, font: '', spacing_above: none,
-    spacing_below: none, italic: false, background: '', bold: false, underline: false}
 components:
-- type: Link
-  properties: {role: null, url: '', align: left, tooltip: '', border: '', foreground: cyan,
-    visible: true, text: '', font_size: null, wrap_on: mobile, font: '', col_spacing: medium,
-    spacing_above: small, icon_align: left, col_widths: '', spacing_below: small,
-    italic: false, background: '', bold: false, underline: false, icon: 'fa:expand'}
-  name: link_1
+- event_bindings: {click: link_1_click}
   layout_properties: {column: DOTCFF}
-  event_bindings: {click: link_1_click}
-- type: DataGrid
+  name: link_1
+  properties: {align: left, background: '', bold: false, border: '', col_spacing: medium, col_widths: '', font: '', font_size: null, foreground: cyan, icon: 'fa:expand', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, url: '', visible: true, wrap_on: mobile}
+  type: Link
+- components:
+  - layout_properties: {}
+    name: repeating_panel_1
+    properties: {item_template: stake_record_card.RowTemplate5.RowTemplate6, spacing_above: none, spacing_below: none}
+    type: RepeatingPanel
+  layout_properties: {column: null}
+  name: data_grid_1
   properties:
-    role: null
-    columns:
-    - {id: OQEXUE, title: Token, data_key: token, $$hashKey: 'object:82177'}
-    - {id: APKIEA, title: Amount, data_key: claimable, $$hashKey: 'object:82178'}
-    - {id: CMEVDI, title: Claimed, data_key: column_3, $$hashKey: 'object:82179'}
     auto_header: true
-    tooltip: ''
+    background: ''
     border: ''
+    columns:
+    - {$$hashKey: 'object:82177', data_key: token, id: OQEXUE, title: Token}
+    - {$$hashKey: 'object:82178', data_key: claimable, id: APKIEA, title: Amount}
+    - {$$hashKey: 'object:82179', data_key: column_3, id: CMEVDI, title: Claimed}
     foreground: ''
+    role: null
     rows_per_page: 20
-    visible: false
-    wrap_on: never
     show_page_controls: false
     spacing_above: small
     spacing_below: small
-    background: ''
-  name: data_grid_1
-  layout_properties: {column: null}
-  components:
-  - type: RepeatingPanel
-    properties: {spacing_above: none, spacing_below: none, item_template: stake_record_card.RowTemplate5.RowTemplate6}
-    name: repeating_panel_1
-    layout_properties: {}
+    tooltip: ''
+    visible: false
+    wrap_on: never
+  type: DataGrid
+container:
+  properties: {align: left, auto_display_data: true, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', italic: false, role: rounded-border, spacing_above: none, spacing_below: none, tooltip: '', underline: false, visible: true}
+  type: DataRowPanel
 is_package: true

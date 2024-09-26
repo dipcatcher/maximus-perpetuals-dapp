@@ -19,7 +19,10 @@ class mint_page(mint_pageTemplate):
       if self.main.provider is not None:
         self.maxi_contract, self.hex_contract=self.main.web3_wallet.connect_contracts(self.main.provider, self.pool_address)
         self.write_maxi_contract, self.write_hex_contract = self.main.web3_wallet.connect_contracts(self.main.signer, self.pool_address)
-        self.refresh_mint()
+        try:
+          self.refresh_mint()
+        except:
+          self.refresh_mint()
     except Exception as e:
       raise e
     
